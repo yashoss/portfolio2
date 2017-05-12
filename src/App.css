@@ -44,15 +44,6 @@ body {
   font-weight: 800;
 }
 
-@media(max-width:600px){
-  .name {
-    flex-direction: column;
-  }
-  .first-name{
-    height: 3.5vh;
-  }
-}
-
 .navItemAbout {
   left: 0;
   top: -50px;
@@ -325,11 +316,10 @@ body {
 }
 
 .icon {
-  width: 100px;
   position: absolute;
   left: 0;
   right: 0;
-  top: 30%;
+  top: 25%;
   margin: 0 auto;
   height: 0;
   margin-top: 100px;
@@ -347,4 +337,22 @@ body {
   50% { transform: rotate(0deg); }
   75% { transform: rotate(-10deg); }
   100% { transform: rotate(0deg); }
+}
+
+@media(max-width:600px){
+  .name {
+    flex-direction: column;
+  }
+  .first-name{
+    height: 3.5vh;
+  }
+  .name:after{
+    animation: none !important;
+  }
+  .name:before{
+    animation: none !important;
+  }
+  .icon {
+    top: 35%
+  }
 }

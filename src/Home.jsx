@@ -5,6 +5,7 @@ export default class Home extends React.Component{
   constructor(){
     super();
     this.icons = [];
+    this.dim = Math.min(window.innerHeight * 0.15, window.innerWidth * 0.15).toString() + "px";
   }
 
   setupCanvas(){
@@ -136,7 +137,7 @@ export default class Home extends React.Component{
       if (change_words){
         clearInterval(change_words);
         change_words = false;
-        icon.style.height = "100px";
+        icon.style.height = this.dim;
         icon.style.marginTop = "0";
         setTimeout(altCycle, 3000);
       }else {
@@ -162,7 +163,7 @@ export default class Home extends React.Component{
     setTimeout(() => {
       slot.style.width = "30vw";
       slot.style.padding = "4px 10px";
-      this.icons[5].style.height = "100px";
+      this.icons[5].style.height = this.dim;
       this.icons[5].style.marginTop = "0";
     }, 700);
 
