@@ -167,7 +167,7 @@ export default class Home extends React.Component{
   render(){
     return(
       <div className="home">
-        <h1 className="name" data-text="Yasin Hosseinpur">Yasin Hosseinpur</h1>
+        <div className="name" data-text="Yasin Hosseinpur"><div className="first-name">Yasin</div><div className="last-name">&nbsp;Hosseinpur</div></div>
         <div className="slot-machine" id="slot"><span className="word spinword1" id="word1">Software</span><span className="word spinword2" id="word2">&nbsp;Developer</span></div>
         <a className="navItem navItemAbout" rel="About"><span className="about-text">ABOUT</span></a>
         <a className="navItem navItemProjects" rel="Projects"><span className="projects-text">PROJECTS</span></a>

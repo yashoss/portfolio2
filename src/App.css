@@ -44,6 +44,15 @@ body {
   font-weight: 800;
 }
 
+@media(max-width:600px){
+  .name {
+    flex-direction: column;
+  }
+  .first-name{
+    height: 3.5vh;
+  }
+}
+
 .navItemAbout {
   left: 0;
   top: -20px;
@@ -91,7 +100,10 @@ body {
 }
 
 .name {
+  display: flex;
   position: absolute;
+  justify-content: center;
+  align-items: center;
   font-size: 5vw;
   color: black;
   font-family: 'Varela', sans-serif;
