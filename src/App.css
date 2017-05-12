@@ -71,32 +71,32 @@ body {
 }
 
 .charAbout{
-  transition: width 0.5s ease-in;
+  transition: width 0.3s ease-in;
   width: 5vh;
 }
 
 .navItemAbout:hover .charAbout{
-  transition: width 0.5s ease-out;
+  transition: width 0.3s ease-out;
   width: 16vh;
 }
 
 .charContact{
-  transition: width 0.5s ease-in;
+  transition: width 0.3s ease-in;
   width: 5vh;
 }
 
 .navItemContact:hover .charContact{
-  transition: width 0.5s ease-out;
+  transition: width 0.3s ease-out;
   width: 12vh;
 }
 
 .charProj{
-  transition: width 0.5s ease-in;
+  transition: width 0.3s ease-in;
   width: 3vw;
 }
 
 .navItemProjects:hover .charProj{
-  transition: width 0.5s ease-out;
+  transition: width 0.3s ease-out;
   width: 9vw;
 }
 
@@ -322,4 +322,29 @@ body {
   font-family: 'Roboto Mono', monospace;
   font-size: 2.5vw;
   font-weight: 700;
+}
+
+.icon {
+  width: 100px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30%;
+  margin: 0 auto;
+  height: 0;
+  margin-top: 100px;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+
+#img1{
+    animation: spin infinite 2s linear;
+}
+
+@keyframes spin {
+  0%: { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-10deg); }
+  100% { transform: rotate(0deg); }
 }

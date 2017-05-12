@@ -2,6 +2,11 @@ import React from 'react';
 
 export default class Home extends React.Component{
 
+  constructor(){
+    super();
+    this.icons = [];
+  }
+
   setupCanvas(){
     // Grab canvas element
     let canvas = document.getElementById('canvas');
@@ -125,9 +130,14 @@ export default class Home extends React.Component{
     let change_words = false;
 
     const altCycle = () => {
+      let icon = this.icons[(i+6-1)%6];
+      icon.style.height = "0";
+      icon.style.marginTop = "100px";
       if (change_words){
         clearInterval(change_words);
         change_words = false;
+        icon.style.height = "100px";
+        icon.style.marginTop = "0";
         setTimeout(altCycle, 3000);
       }else {
         i = (i+1) % 6;
@@ -152,6 +162,8 @@ export default class Home extends React.Component{
     setTimeout(() => {
       slot.style.width = "30vw";
       slot.style.padding = "4px 10px";
+      this.icons[5].style.height = "100px";
+      this.icons[5].style.marginTop = "0";
     }, 700);
 
     setTimeout(() => {
@@ -160,6 +172,9 @@ export default class Home extends React.Component{
   }
 
   componentDidMount(){
+    for (let i=0; i<6; ++i){
+      this.icons.push(document.getElementById(`img${i}`));
+    }
     this.setupCanvas();
     this.expandSlotMachine();
   }
@@ -167,6 +182,12 @@ export default class Home extends React.Component{
   render(){
     return(
       <div className="home">
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494618930/developer_vtcqee.png" className="icon" id="img5"></img>
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/designer_pbghny.png" className="icon" id="img0"></img>
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/connoisseur_v9jssn.png" className="icon" id="img1"></img>
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/aficionado_vw5z8a.png" className="icon" id="img2"></img>
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/intellect_acj5se.png" className="icon" id="img3"></img>
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/researcher_mukgit.png" className="icon" id="img4"></img>
         <div className="name" data-text="Yasin Hosseinpur"><div className="first-name">Yasin</div><div className="last-name">&nbsp;Hosseinpur</div></div>
         <div className="slot-machine" id="slot"><span className="word spinword1" id="word1">Software</span><span className="word spinword2" id="word2">&nbsp;Developer</span></div>
         <a className="navItem navItemAbout" rel="About"><div className="charAbout">A</div><div className="charAbout">B</div><div className="charAbout">O</div><div className="charAbout">U</div><div className="charAbout">T</div></a>
