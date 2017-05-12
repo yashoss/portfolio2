@@ -1,46 +1,107 @@
-body{
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+body {
+  letter-spacing: 1em;
+  position: relative;
+  font-family: 'Varela', sans-serif;
+}
+
+.home {
+  min-width: 100%;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
 
-.App {
+.App{
   text-align: center;
-  min-height: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.canvas {
+  width: 100%;
+  height: 100vh;
 }
 
 .header {
   position: absolute;
-  width: 100%;
   margin: 0 auto;
   left: 0;
   right: 0;
   top: 40%;
 }
 
+.navItem {
+  position: absolute;
+  cursor: pointer;
+  font-size: 2vh;
+  font-size: 2vw;
+  font-weight: 800;
+}
+
+.navItemAbout {
+  left: 0;
+  top: -20px;
+  margin: 0;
+  display: flex;
+  width: 99vh;
+  justify-content: center;
+  align-items: center;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  transform-origin: left bottom 0;
+  vertical-align: top;
+  margin-left: 0.5vw;
+}
+
+.navItemContact {
+  right: 0;
+  top: 0;
+  margin: 0;
+  display: flex;
+  width: 99vh;
+  justify-content: center;
+  align-items: center;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  transform-origin: right top 0;
+  vertical-align: top;
+  margin-right: 3vw;
+}
+
+.navItemProjects {
+  bottom: 2px;
+  right: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1vh;
+}
+
 .name {
   position: absolute;
-  font-size: 10vh;
-  width: 100%;
+  font-size: 4vw;
   color: black;
+  font-family: 'Varela', sans-serif;
+  left: 0;
+  top: 46%;
+  width: 100%;
+  margin: auto;
+  margin-top: -100px;
+  line-height: 200px;
 }
 
 @keyframes noise-anim {
@@ -111,13 +172,13 @@ body{
 .name:after {
   content: attr(data-text);
   position: absolute;
-  left: 2px;
+  left: 10px;
   right: 0;
   text-shadow: -1px 0 red;
   color: black;
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
-  animation: noise-anim 2s infinite linear alternate-reverse;
+  animation: noise-anim 4s infinite linear alternate-reverse;
 }
 
 @keyframes noise-anim-2 {
@@ -188,11 +249,73 @@ body{
 .name:before {
   content: attr(data-text);
   position: absolute;
-  left: -2px;
+  left: -10px;
   right: 0;
   text-shadow: 1px 0 blue;
   color: black;
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
-  animation: noise-anim-2 3s infinite linear alternate-reverse;
+  animation: noise-anim-2 4s infinite linear alternate-reverse;
+}
+
+.slot-machine {
+  height: 4vh;
+  width: 30vw;
+  position: absolute;
+  background-color: #3c3c3e;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.word {
+  color: #FFF;
+  letter-spacing: normal;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2.5vw;
+  font-weight: 700;
+}
+
+.spinword1 {
+  animation: movdown .12s infinite linear;
+}
+
+.spinword2 {
+  animation: movup .12s infinite linear;
+}
+
+@keyframes movdown {
+  0% {
+    transform: translatey(-30px);
+    opacity: 0;
+  }
+  50% {
+    transform: translatey(-15px);
+    opacity: 1;
+  }
+  100% {
+    transform: translatey(25px);
+    opacity: 0;
+  }
+}
+
+@keyframes movup {
+  0% {
+    transform: translatey(30px);
+    opacity: 0;
+  }
+  50% {
+    transform: translatey(15px);
+    opacity: 1;
+  }
+  100% {
+    transform: translatey(-25px);
+    opacity: 0;
+  }
 }

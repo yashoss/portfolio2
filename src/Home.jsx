@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class Home extends React.Component{
 
-  componentDidMount(){
+  setupCanvas(){
     // Grab canvas element
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
@@ -15,6 +15,7 @@ export default class Home extends React.Component{
 
     // Particles
     let mp = 10000; //max particles
+    let cycle = 0;
     let particles = [];
     for(let i = 0; i < mp; i++)
     {
@@ -26,12 +27,21 @@ export default class Home extends React.Component{
       })
     }
 
+    const drawFast = setInterval(draw, 10);
+
     // Draw particles
   	function draw(){
   		ctx.clearRect(0, 0, W, H);
       if (mp > 25){
         mp -= mp * .1;
+        ++cycle;
       }
+      if (cycle === 57){
+        clearInterval(drawFast);
+        setInterval(draw, 33);
+        ++cycle;
+      }
+      if (cycle === 10000)
   		ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
   		ctx.beginPath();
   		for(let i = 0; i < mp; i++)
@@ -82,15 +92,55 @@ export default class Home extends React.Component{
   			}
   		}
   	}
+  }
 
-    setInterval(draw, 33);
+  hasClass(el, className) {
+    if (el.classList)
+      return el.classList.contains(className)
+    else
+      return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'))
+  }
+
+  addClass(el, className) {
+    if (el.classList)
+      el.classList.add(className)
+    else if (!this.hasClass(el, className)) el.className += " " + className
+  }
+
+  removeClass(el, className) {
+    if (el.classList)
+      el.classList.remove(className)
+    else if (this.hasClass(el, className)) {
+      var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
+      el.className=el.className.replace(reg, ' ')
+    }
+  }
+
+  slotWords(){
+    const words1 = ["Software", "Designer", "Frontend", "Backend", "Intellect", "Researcher"];
+    const words2 = ["&nbsp;Developer", "", "&nbsp;Connoisseur", "&nbsp;Aficionado", "", ""];
+    let word1 = document.getElementById("word1");
+    let word2 = document.getElementById("word2");
+    setTimeout(() => {
+      this.removeClass(word1, "spinword1");
+      this.removeClass(word2, "spinword2");
+    }, 1000);
+  }
+
+  componentDidMount(){
+    this.setupCanvas();
+    this.slotWords();
   }
 
   render(){
     return(
       <div className="home">
-        <div className="header"><h1 className="name" data-text="Yasin Hosseinpur">Yasin Hosseinpur</h1></div>
-        <canvas id="canvas"></canvas>
+        <h1 className="name" data-text="Yasin Hosseinpur">Yasin Hosseinpur</h1>
+        <div className="slot-machine"><span className="word spinword1" id="word1">Software</span><span className="word spinword2" id="word2">&nbsp;Developer</span></div>
+        <a className="navItem navItemAbout" rel="About"><span className="about-text">ABOUT</span></a>
+        <a className="navItem navItemProjects" rel="Projects"><span className="projects-text">PROJECTS</span></a>
+        <a className="navItem navItemContact" rel="Contact"><span className="contact-text">CONTACT</span></a>
+        <canvas className="canvas"  id="canvas"></canvas>
       </div>
     )
   }
