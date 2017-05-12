@@ -40,7 +40,6 @@ body {
 .navItem {
   position: absolute;
   cursor: pointer;
-  font-size: 2vh;
   font-size: 2vw;
   font-weight: 800;
 }
@@ -93,7 +92,7 @@ body {
 
 .name {
   position: absolute;
-  font-size: 4vw;
+  font-size: 5vw;
   color: black;
   font-family: 'Varela', sans-serif;
   left: 0;
@@ -266,12 +265,12 @@ body {
   margin: 0 auto;
   left: 0;
   right: 0;
-  top: 50%;
+  top: 52%;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0;
+  padding: 4px 10px;
 }
 
 .word {
@@ -280,14 +279,6 @@ body {
   font-family: 'Roboto Mono', monospace;
   font-size: 2.5vw;
   font-weight: 700;
-}
-
-.spinword1 {
-  animation: movdown .12s infinite linear;
-}
-
-.spinword2 {
-  animation: movup .12s infinite linear;
 }
 
 @keyframes movdown {

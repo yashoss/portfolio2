@@ -117,14 +117,30 @@ export default class Home extends React.Component{
   }
 
   slotWords(){
-    const words1 = ["Software", "Designer", "Frontend", "Backend", "Intellect", "Researcher"];
+    const words1 = ["Software", "Designer", "Frontend", "Backend", "Intellectual", "Researcher"];
     const words2 = ["&nbsp;Developer", "", "&nbsp;Connoisseur", "&nbsp;Aficionado", "", ""];
     let word1 = document.getElementById("word1");
     let word2 = document.getElementById("word2");
-    setTimeout(() => {
-      this.removeClass(word1, "spinword1");
-      this.removeClass(word2, "spinword2");
-    }, 1000);
+    let i = 1;
+    let change_words = setInterval(() => {
+      word1.innerHTML = words1[i];
+      word2.innerHTML = words2[i];
+      i = (i+1) % 6;
+    }, 120);
+
+    setInterval(() => {
+      if (change_words){
+        clearInterval(change_words);
+        change_words = false;
+      }else {
+        i = (i+1) % 6;
+        change_words = setInterval(() => {
+          word1.innerHTML = words1[i];
+          word2.innerHTML = words2[i];
+          i = (i+1) % 6;
+        }, 120);
+      }
+    }, 1560);
   }
 
   componentDidMount(){
@@ -136,7 +152,7 @@ export default class Home extends React.Component{
     return(
       <div className="home">
         <h1 className="name" data-text="Yasin Hosseinpur">Yasin Hosseinpur</h1>
-        <div className="slot-machine"><span className="word spinword1" id="word1">Software</span><span className="word spinword2" id="word2">&nbsp;Developer</span></div>
+        <div className="slot-machine"><span className="word spinword1" id="word1"></span><span className="word spinword2" id="word2"></span></div>
         <a className="navItem navItemAbout" rel="About"><span className="about-text">ABOUT</span></a>
         <a className="navItem navItemProjects" rel="Projects"><span className="projects-text">PROJECTS</span></a>
         <a className="navItem navItemContact" rel="Contact"><span className="contact-text">CONTACT</span></a>
