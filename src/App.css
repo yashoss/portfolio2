@@ -171,7 +171,7 @@ body {
 .name:after {
   content: attr(data-text);
   position: absolute;
-  left: 10px;
+  left: 3px;
   right: 0;
   text-shadow: -1px 0 red;
   color: black;
@@ -248,7 +248,7 @@ body {
 .name:before {
   content: attr(data-text);
   position: absolute;
-  left: -10px;
+  left: -3px;
   right: 0;
   text-shadow: 1px 0 blue;
   color: black;
@@ -258,8 +258,8 @@ body {
 }
 
 .slot-machine {
-  height: 4vh;
-  width: 30vw;
+  height: 0;
+  width: 5px;
   position: absolute;
   background-color: #3c3c3e;
   margin: 0 auto;
@@ -270,7 +270,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4px 10px;
+  padding: 0;
+  -webkit-transition: width 1s, padding 1s, height 0.5s;
+  transition: width 1s, padding 1s, height 0.5s;
 }
 
 .word {
@@ -279,34 +281,4 @@ body {
   font-family: 'Roboto Mono', monospace;
   font-size: 2.5vw;
   font-weight: 700;
-}
-
-@keyframes movdown {
-  0% {
-    transform: translatey(-30px);
-    opacity: 0;
-  }
-  50% {
-    transform: translatey(-15px);
-    opacity: 1;
-  }
-  100% {
-    transform: translatey(25px);
-    opacity: 0;
-  }
-}
-
-@keyframes movup {
-  0% {
-    transform: translatey(30px);
-    opacity: 0;
-  }
-  50% {
-    transform: translatey(15px);
-    opacity: 1;
-  }
-  100% {
-    transform: translatey(-25px);
-    opacity: 0;
-  }
 }

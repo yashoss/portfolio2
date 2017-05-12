@@ -117,21 +117,18 @@ export default class Home extends React.Component{
   }
 
   slotWords(){
-    const words1 = ["Software", "Designer", "Frontend", "Backend", "Intellectual", "Researcher"];
-    const words2 = ["&nbsp;Developer", "", "&nbsp;Connoisseur", "&nbsp;Aficionado", "", ""];
+    const words1 = ["Designer", "Frontend", "Backend", "Intellectual", "Internet", "Software"];
+    const words2 = ["", "&nbsp;Connoisseur", "&nbsp;Aficionado", "", "&nbsp;Researcher", "&nbsp;Developer"];
     let word1 = document.getElementById("word1");
     let word2 = document.getElementById("word2");
-    let i = 1;
-    let change_words = setInterval(() => {
-      word1.innerHTML = words1[i];
-      word2.innerHTML = words2[i];
-      i = (i+1) % 6;
-    }, 120);
+    let i = 0;
+    let change_words = false;
 
-    setInterval(() => {
+    const altCycle = () => {
       if (change_words){
         clearInterval(change_words);
         change_words = false;
+        setTimeout(altCycle, 3000);
       }else {
         i = (i+1) % 6;
         change_words = setInterval(() => {
@@ -139,20 +136,39 @@ export default class Home extends React.Component{
           word2.innerHTML = words2[i];
           i = (i+1) % 6;
         }, 120);
+        setTimeout(altCycle, 1550);
       }
-    }, 1560);
+    }
+
+    altCycle();
+  }
+
+  expandSlotMachine(){
+    let slot = document.getElementById("slot");
+    setTimeout(() => {
+      slot.style.height = "4vh";
+    }, 200);
+
+    setTimeout(() => {
+      slot.style.width = "30vw";
+      slot.style.padding = "4px 10px";
+    }, 700);
+
+    setTimeout(() => {
+      this.slotWords();
+    }, 4700);
   }
 
   componentDidMount(){
     this.setupCanvas();
-    this.slotWords();
+    this.expandSlotMachine();
   }
 
   render(){
     return(
       <div className="home">
         <h1 className="name" data-text="Yasin Hosseinpur">Yasin Hosseinpur</h1>
-        <div className="slot-machine"><span className="word spinword1" id="word1"></span><span className="word spinword2" id="word2"></span></div>
+        <div className="slot-machine" id="slot"><span className="word spinword1" id="word1">Software</span><span className="word spinword2" id="word2">&nbsp;Developer</span></div>
         <a className="navItem navItemAbout" rel="About"><span className="about-text">ABOUT</span></a>
         <a className="navItem navItemProjects" rel="Projects"><span className="projects-text">PROJECTS</span></a>
         <a className="navItem navItemContact" rel="Contact"><span className="contact-text">CONTACT</span></a>
