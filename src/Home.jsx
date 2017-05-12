@@ -169,9 +169,9 @@ export default class Home extends React.Component{
       <div className="home">
         <div className="name" data-text="Yasin Hosseinpur"><div className="first-name">Yasin</div><div className="last-name">&nbsp;Hosseinpur</div></div>
         <div className="slot-machine" id="slot"><span className="word spinword1" id="word1">Software</span><span className="word spinword2" id="word2">&nbsp;Developer</span></div>
-        <a className="navItem navItemAbout" rel="About"><span className="about-text">ABOUT</span></a>
-        <a className="navItem navItemProjects" rel="Projects"><span className="projects-text">PROJECTS</span></a>
-        <a className="navItem navItemContact" rel="Contact"><span className="contact-text">CONTACT</span></a>
+        <a className="navItem navItemAbout" rel="About"><div className="charAbout">A</div><div className="charAbout">B</div><div className="charAbout">O</div><div className="charAbout">U</div><div className="charAbout">T</div></a>
+        <a className="navItem navItemProjects" rel="Projects"><div className="charProj">P</div><div className="charProj">R</div><div className="charProj">O</div><div className="charProj">J</div><div className="charProj">E</div><div className="charProj">C</div><div className="charProj">T</div><div className="charProj">S</div></a>
+        <a className="navItem navItemContact" rel="Contact"><div className="charContact">C</div><div className="charContact">O</div><div className="charContact">N</div><div className="charContact">T</div><div className="charContact">A</div><div className="charContact">C</div><div className="charContact">T</div></a>
         <canvas className="canvas"  id="canvas"></canvas>
       </div>
     )

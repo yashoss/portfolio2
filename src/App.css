@@ -40,7 +40,7 @@ body {
 .navItem {
   position: absolute;
   cursor: pointer;
-  font-size: 2vw;
+  font-size: 2.5vw;
   font-weight: 800;
 }
 
@@ -55,7 +55,7 @@ body {
 
 .navItemAbout {
   left: 0;
-  top: -20px;
+  top: -50px;
   margin: 0;
   display: flex;
   width: 99vh;
@@ -68,7 +68,36 @@ body {
   transform: rotate(90deg);
   transform-origin: left bottom 0;
   vertical-align: top;
-  margin-left: 0.5vw;
+}
+
+.charAbout{
+  transition: width 0.5s ease-in;
+  width: 5vh;
+}
+
+.navItemAbout:hover .charAbout{
+  transition: width 0.5s ease-out;
+  width: 16vh;
+}
+
+.charContact{
+  transition: width 0.5s ease-in;
+  width: 5vh;
+}
+
+.navItemContact:hover .charContact{
+  transition: width 0.5s ease-out;
+  width: 12vh;
+}
+
+.charProj{
+  transition: width 0.5s ease-in;
+  width: 3vw;
+}
+
+.navItemProjects:hover .charProj{
+  transition: width 0.5s ease-out;
+  width: 9vw;
 }
 
 .navItemContact {
