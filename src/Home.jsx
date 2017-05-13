@@ -6,9 +6,21 @@ export default class Home extends React.Component{
     super();
     this.icons = [];
     this.dim = Math.min(window.innerHeight * 0.15, window.innerWidth * 0.15).toString() + "px";
+    this.curr_icon = false;
+    window.particles = [];
   }
 
-  setupCanvas(){
+  clearCanvas(){
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let W = window.innerWidth;
+    let H = window.innerHeight
+    ctx.clearRect(0, 0, W, H);
+    clearInterval(window.drawSlow);
+    window.particles = [];
+  }
+
+  setupCanvas(max_particle = 10000, start_interval = 10){
     // Grab canvas element
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
@@ -20,12 +32,11 @@ export default class Home extends React.Component{
   	canvas.height = H;
 
     // Particles
-    let mp = 10000; //max particles
+    let mp = max_particle; //max particles
     let cycle = 0;
-    let particles = [];
     for(let i = 0; i < mp; i++)
     {
-      particles.push({
+      window.particles.push({
         x: Math.random()*W, //x-coordinate
         y: Math.random()*H, //y-coordinate
         r: Math.random()*4+1, //radius
@@ -33,7 +44,7 @@ export default class Home extends React.Component{
       })
     }
 
-    const drawFast = setInterval(draw, 10);
+    window.drawSlow = setInterval(draw, start_interval);
 
     // Draw particles
   	function draw(){
@@ -43,8 +54,8 @@ export default class Home extends React.Component{
         ++cycle;
       }
       if (cycle === 57){
-        clearInterval(drawFast);
-        setInterval(draw, 33);
+        clearInterval(window.drawSlow);
+        window.drawSlow = setInterval(draw, 33);
         ++cycle;
       }
       if (cycle === 10000)
@@ -52,7 +63,7 @@ export default class Home extends React.Component{
   		ctx.beginPath();
   		for(let i = 0; i < mp; i++)
   		{
-  			let p = particles[i];
+  			let p = window.particles[i];
   			ctx.moveTo(p.x, p.y);
   			ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
   		}
@@ -65,7 +76,7 @@ export default class Home extends React.Component{
   		let angle = 1.5;
   		for(let i = 0; i < mp; i++)
   		{
-  			let p = particles[i];
+  			let p = window.particles[i];
   			//Updating X and Y coordinates
   			//We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
   			//Every particle has its own density which can be used to make the downward movement different for each flake
@@ -79,7 +90,7 @@ export default class Home extends React.Component{
   			{
   				if(i%3 > 0) //66.67% of the flakes
   				{
-  					particles[i] = {x: Math.random()*W, y: -10, r: p.r, d: p.d};
+  					window.particles[i] = {x: Math.random()*W, y: -10, r: p.r, d: p.d};
   				}
   				else
   				{
@@ -87,12 +98,12 @@ export default class Home extends React.Component{
   					if(Math.sin(angle) > 0)
   					{
   						//Enter from the left
-  						particles[i] = {x: -5, y: Math.random()*H, r: p.r, d: p.d};
+  						window.particles[i] = {x: -5, y: Math.random()*H, r: p.r, d: p.d};
   					}
   					else
   					{
   						//Enter from the right
-  						particles[i] = {x: W+5, y: Math.random()*H, r: p.r, d: p.d};
+  						window.particles[i] = {x: W+5, y: Math.random()*H, r: p.r, d: p.d};
   					}
   				}
   			}
@@ -132,6 +143,7 @@ export default class Home extends React.Component{
 
     const altCycle = () => {
       let icon = this.icons[(i+6-1)%6];
+      this.curr_icon = icon;
       icon.style.height = "0";
       icon.style.marginTop = "100px";
       if (change_words){
@@ -142,6 +154,7 @@ export default class Home extends React.Component{
         setTimeout(altCycle, 3000);
       }else {
         i = (i+1) % 6;
+        this.curr_icon = false;
         change_words = setInterval(() => {
           word1.innerHTML = words1[i];
           word2.innerHTML = words2[i];
@@ -162,7 +175,7 @@ export default class Home extends React.Component{
 
     setTimeout(() => {
       slot.style.width = "30vw";
-      slot.style.padding = "4px 10px";
+      slot.style.padding = "4px 20px";
       this.icons[5].style.height = this.dim;
       this.icons[5].style.marginTop = "0";
     }, 700);
@@ -178,17 +191,26 @@ export default class Home extends React.Component{
     }
     this.setupCanvas();
     this.expandSlotMachine();
+    window.addEventListener('resize', () => {
+      this.dim = Math.min(window.innerHeight * 0.15, window.innerWidth * 0.15).toString() + "px";
+      if (this.curr_icon){
+        this.curr_icon.style.height = this.dim;
+      }
+      this.clearCanvas();
+      this.setupCanvas(25, 33);
+    }, true)
   }
 
   render(){
     return(
       <div className="home">
-        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494618930/developer_vtcqee.png" className="icon" id="img5"></img>
-        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/designer_pbghny.png" className="icon" id="img0"></img>
-        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/connoisseur_v9jssn.png" className="icon" id="img1"></img>
-        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/aficionado_vw5z8a.png" className="icon" id="img2"></img>
-        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/intellect_acj5se.png" className="icon" id="img3"></img>
-        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/researcher_mukgit.png" className="icon" id="img4"></img>
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494618930/developer_vtcqee.png" className="icon" id="img5" alt="developer icon"></img>
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/designer_pbghny.png" className="icon" id="img0" alt="designer icon"></img>
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/connoisseur_v9jssn.png" className="icon" id="img1" alt="connoisseur icon"></img>
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/aficionado_vw5z8a.png" className="icon" id="img2" alt="aficionado icon"></img>
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/intellect_acj5se.png" className="icon" id="img3" alt="intellect icon"></img>
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/researcher_mukgit.png" className="icon" id="img4" alt="researcher icon"></img>
+        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494707456/yh_logo_sz546i.png" className="logo" id="yh" alt="Y.H logo"></img>
         <div className="name" data-text="Yasin Hosseinpur"><div className="first-name">Yasin</div><div className="last-name">&nbsp;Hosseinpur</div></div>
         <div className="slot-machine" id="slot"><span className="word spinword1" id="word1">Software</span><span className="word spinword2" id="word2">&nbsp;Developer</span></div>
         <a className="navItem navItemAbout" rel="About"><div className="charAbout">A</div><div className="charAbout">B</div><div className="charAbout">O</div><div className="charAbout">U</div><div className="charAbout">T</div></a>
