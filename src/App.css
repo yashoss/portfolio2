@@ -82,6 +82,15 @@ body {
   vertical-align: top;
 }
 
+.sliderAb{
+  animation: slideAb 1.5s linear;
+}
+
+@keyframes slideAb {
+    0% {left: 0;}
+    100% {left: 100vw;}
+}
+
 .charAbout{
   transition: width 0.3s ease-in;
   width: 5vh;

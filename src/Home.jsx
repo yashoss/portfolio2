@@ -139,28 +139,28 @@ export default class Home extends React.Component{
     let word1 = document.getElementById("word1");
     let word2 = document.getElementById("word2");
     let i = 0;
-    let change_words = false;
+    window.change_words = false;
 
     const altCycle = () => {
       let icon = this.icons[(i+6-1)%6];
       this.curr_icon = icon;
       icon.style.height = "0";
       icon.style.marginTop = "100px";
-      if (change_words){
-        clearInterval(change_words);
-        change_words = false;
+      if (window.change_words){
+        clearInterval(window.change_words);
+        window.change_words = false;
         icon.style.height = this.dim;
         icon.style.marginTop = "0";
-        setTimeout(altCycle, 3000);
+        window.cycWords = setTimeout(altCycle, 3000);
       }else {
         i = (i+1) % 6;
         this.curr_icon = false;
-        change_words = setInterval(() => {
+        window.change_words = setInterval(() => {
           word1.innerHTML = words1[i];
           word2.innerHTML = words2[i];
           i = (i+1) % 6;
         }, 120);
-        setTimeout(altCycle, 1550);
+        window.cycWords = setTimeout(altCycle, 1550);
       }
     }
 
@@ -208,9 +208,8 @@ export default class Home extends React.Component{
       let frame2 = 1;
       let segment2 = start;
       const animate2 = setInterval(() => {
-      if (frame2 > 200) {
+      if (frame2 > 150) {
         clearInterval(animate2);
-        console.log("cleared");
       }
       ctx.beginPath();
       ctx.rect(segment2, y, w, h);
@@ -228,7 +227,6 @@ export default class Home extends React.Component{
       const animate2 = setInterval(() => {
       if (frame2 > 150) {
         clearInterval(animate2);
-        console.log("cleared");
       }
       ctx.beginPath();
       ctx.rect(x, segment2, w, h);
@@ -240,6 +238,8 @@ export default class Home extends React.Component{
   }
 
   toAbout(){
+    clearTimeout(window.cycWords);
+    clearInterval(window.change_words);
     document.getElementById('projects').style.zIndex = "-1";
     document.getElementById('contact').style.zIndex = "-1";
     [...document.getElementsByClassName('charAbout')].forEach((el) => {
@@ -251,15 +251,15 @@ export default class Home extends React.Component{
   	let H = window.innerHeight;
   	canvas.width = W;
   	canvas.height = H;
-    let w = W/150;
+    let w = W/100;
     let h = H/6;
-    this.paintHorizonScreen(ctx, 0, W/200, 0, 0, 0, w, h);
-    this.paintHorizonScreen(ctx, 400, W/200, 0, 0, H/6, w, h);
-    this.paintHorizonScreen(ctx, 150, W/200, 0, 0, H/6 * 2, w, h);
-    this.paintHorizonScreen(ctx, 250, W/200, 0, 0, H/6 * 3, w, h);
-    this.paintHorizonScreen(ctx, 0, W/200, 0, 0, H/6 * 4, w, h);
-    this.paintHorizonScreen(ctx, 150, W/200, 0, 0, H/6 * 5, w, h);
-    // this.props.history.push('/about');
+    this.paintHorizonScreen(ctx, 0, W/150, 0, 0, 0, w, h);
+    this.paintHorizonScreen(ctx, 400, W/150, 0, 0, H/6, w, h);
+    this.paintHorizonScreen(ctx, 150, W/150, 0, 0, H/6 * 2, w, h);
+    this.paintHorizonScreen(ctx, 250, W/150, 0, 0, H/6 * 3, w, h);
+    this.paintHorizonScreen(ctx, 0, W/150, 0, 0, H/6 * 4, w, h);
+    this.paintHorizonScreen(ctx, 150, W/150, 0, 0, H/6 * 5, w, h);
+    setTimeout(() => {this.props.history.push('/about')}, 2401);
   }
 
   toProjects(){
@@ -283,7 +283,7 @@ export default class Home extends React.Component{
     this.paintVertScreen(ctx, 250, H/150, H, W/6 * 3 - 5, H, w + 5, h);
     this.paintVertScreen(ctx, 0, H/150, H, W/6 * 4 - 5, H, w + 5, h);
     this.paintVertScreen(ctx, 150, H/150, H, W/6 * 5 - 5, H, w+ 5, h);
-    // this.props.history.push('/projects');
+    setTimeout(() => {this.props.history.push('/projects');}, 401);
   }
 
   toContact(){
@@ -298,14 +298,14 @@ export default class Home extends React.Component{
     let H = window.innerHeight;
     canvas.width = W;
     canvas.height = H;
-    let w = W/150;
+    let w = W/100;
     let h = H/6;
-    this.paintHorizonScreen(ctx, 150, -W/200, W, 0, 0, w, h);
-    this.paintHorizonScreen(ctx, 0, -W/200, W, 0, H/6, w, h);
-    this.paintHorizonScreen(ctx, 250, -W/200, W, 0, H/6 * 2, w, h);
-    this.paintHorizonScreen(ctx, 150, -W/200, W, 0, H/6 * 3, w, h);
-    this.paintHorizonScreen(ctx, 400, -W/200, W, 0, H/6 * 4, w, h);
-    this.paintHorizonScreen(ctx, 0, -W/200, W, 0, H/6 * 5, w, h);
+    this.paintHorizonScreen(ctx, 150, -W/150, W, 0, 0, w, h);
+    this.paintHorizonScreen(ctx, 0, -W/150, W, 0, H/6, w, h);
+    this.paintHorizonScreen(ctx, 250, -W/150, W, 0, H/6 * 2, w, h);
+    this.paintHorizonScreen(ctx, 150, -W/150, W, 0, H/6 * 3, w, h);
+    this.paintHorizonScreen(ctx, 400, -W/150, W, 0, H/6 * 4, w, h);
+    this.paintHorizonScreen(ctx, 0, -W/150, W, 0, H/6 * 5, w, h);
     // this.props.history.push('/contact');
   }
 
