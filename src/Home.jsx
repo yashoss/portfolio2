@@ -203,7 +203,7 @@ export default class Home extends React.Component{
     }, true)
   }
 
-  paintScreen(ctx, delay = 0, increment, start, x, y, w, h){
+  paintHorizonScreen(ctx, delay = 0, increment, start, x, y, w, h){
     setTimeout( () => {
       let frame2 = 1;
       let segment2 = start;
@@ -221,50 +221,92 @@ export default class Home extends React.Component{
     }, 10)}, delay)
   }
 
-  toAbout(){
-    let canvas = document.getElementById('transition-canvas');
-    let ctx = canvas.getContext('2d');
-    let W = window.innerWidth;
-  	let H = window.innerHeight;
-  	canvas.width = W;
-  	canvas.height = H;
-    let w = window.innerWidth/150;
-    let h = window.innerHeight/6;
-    this.paintScreen(ctx, 0, window.innerWidth/200, 0, 0, 0, w, h);
-    this.paintScreen(ctx, 300, window.innerWidth/200, 0, 0, window.innerHeight/6, w, h);
-    this.paintScreen(ctx, 100, window.innerWidth/200, 0, 0, window.innerHeight/6 * 2, w, h);
-    this.paintScreen(ctx, 250, window.innerWidth/200, 0, 0, window.innerHeight/6 * 3, w, h);
-    this.paintScreen(ctx, 0, window.innerWidth/200, 0, 0, window.innerHeight/6 * 4, w, h);
-    this.paintScreen(ctx, 100, window.innerWidth/200, 0, 0, window.innerHeight/6 * 5, w, h);
-
-  }
-
-  toProjects(){
-    let canvas = document.getElementById('transition-canvas');
-    let ctx = canvas.getContext('2d');
-    let W = window.innerWidth;
-  	let H = window.innerHeight;
-  	canvas.width = W;
-  	canvas.height = H;
-    let frame = 1;
-    let segment = window.innerHeight;
-    const animate = setInterval(() => {
-      if (frame > 200) {
-        clearInterval(animate);
+  paintVertScreen(ctx, delay = 0, increment, start, x, y, w, h){
+    setTimeout( () => {
+      let frame2 = 1;
+      let segment2 = start;
+      const animate2 = setInterval(() => {
+      if (frame2 > 150) {
+        clearInterval(animate2);
         console.log("cleared");
       }
       ctx.beginPath();
-      ctx.rect(0, segment, window.innerWidth/6, window.innerHeight/100);
+      ctx.rect(x, segment2, w, h);
       ctx.fillStyle = "#38f75e";
       ctx.fill();
-      ++frame;
-      segment -= window.innerHeight/200;
-    }, 5)
+      ++frame2;
+      segment2 -= increment;
+    }, 10)}, delay)
+  }
+
+  toAbout(){
+    document.getElementById('projects').style.zIndex = "-1";
+    document.getElementById('contact').style.zIndex = "-1";
+    [...document.getElementsByClassName('charAbout')].forEach((el) => {
+      el.style.width = "16vh";
+    });
+    let canvas = document.getElementById('transition-canvas');
+    let ctx = canvas.getContext('2d');
+    let W = window.innerWidth;
+  	let H = window.innerHeight;
+  	canvas.width = W;
+  	canvas.height = H;
+    let w = W/150;
+    let h = H/6;
+    this.paintHorizonScreen(ctx, 0, W/200, 0, 0, 0, w, h);
+    this.paintHorizonScreen(ctx, 400, W/200, 0, 0, H/6, w, h);
+    this.paintHorizonScreen(ctx, 150, W/200, 0, 0, H/6 * 2, w, h);
+    this.paintHorizonScreen(ctx, 250, W/200, 0, 0, H/6 * 3, w, h);
+    this.paintHorizonScreen(ctx, 0, W/200, 0, 0, H/6 * 4, w, h);
+    this.paintHorizonScreen(ctx, 150, W/200, 0, 0, H/6 * 5, w, h);
+    // this.props.history.push('/about');
+  }
+
+  toProjects(){
+    document.getElementById('about').style.zIndex = "-1";
+    document.getElementById('contact').style.zIndex = "-1";
+    [...document.getElementsByClassName('charProj')].forEach((el) => {
+      el.style.width = "9vw";
+    });
+    console.log(document.getElementsByClassName('charProj'));
+    let canvas = document.getElementById('transition-canvas');
+    let ctx = canvas.getContext('2d');
+    let W = window.innerWidth;
+  	let H = window.innerHeight;
+  	canvas.width = W;
+  	canvas.height = H;
+    let w = W/6;
+    let h = H/100;
+    this.paintVertScreen(ctx, 0, H/150, H, 0, 0, w, h);
+    this.paintVertScreen(ctx, 400, H/150, H, W/6 - 5, H, w + 5, h);
+    this.paintVertScreen(ctx, 150, H/150, H, W/6 * 2 - 5, H, w + 5, h);
+    this.paintVertScreen(ctx, 250, H/150, H, W/6 * 3 - 5, H, w + 5, h);
+    this.paintVertScreen(ctx, 0, H/150, H, W/6 * 4 - 5, H, w + 5, h);
+    this.paintVertScreen(ctx, 150, H/150, H, W/6 * 5 - 5, H, w+ 5, h);
     // this.props.history.push('/projects');
   }
 
   toContact(){
-    this.props.history.push('/contact');
+    document.getElementById('projects').style.zIndex = "-1";
+    document.getElementById('about').style.zIndex = "-1";
+    [...document.getElementsByClassName('charContact')].forEach((el) => {
+      el.style.width = "12vh";
+    });
+    let canvas = document.getElementById('transition-canvas');
+    let ctx = canvas.getContext('2d');
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+    let w = W/150;
+    let h = H/6;
+    this.paintHorizonScreen(ctx, 150, -W/200, W, 0, 0, w, h);
+    this.paintHorizonScreen(ctx, 0, -W/200, W, 0, H/6, w, h);
+    this.paintHorizonScreen(ctx, 250, -W/200, W, 0, H/6 * 2, w, h);
+    this.paintHorizonScreen(ctx, 150, -W/200, W, 0, H/6 * 3, w, h);
+    this.paintHorizonScreen(ctx, 400, -W/200, W, 0, H/6 * 4, w, h);
+    this.paintHorizonScreen(ctx, 0, -W/200, W, 0, H/6 * 5, w, h);
+    // this.props.history.push('/contact');
   }
 
   render(){
