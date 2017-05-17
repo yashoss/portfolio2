@@ -2,8 +2,8 @@ import React from 'react';
 
 export default class Home extends React.Component{
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.icons = [];
     this.dim = Math.min(window.innerHeight * 0.15, window.innerWidth * 0.15).toString() + "px";
     this.curr_icon = false;
@@ -175,7 +175,7 @@ export default class Home extends React.Component{
 
     setTimeout(() => {
       slot.style.width = "30vw";
-      slot.style.padding = "4px 20px";
+      slot.style.padding = "10px 20px";
       this.icons[5].style.height = this.dim;
       this.icons[5].style.marginTop = "0";
     }, 700);
@@ -186,6 +186,8 @@ export default class Home extends React.Component{
   }
 
   componentDidMount(){
+    let tcanvas = document.getElementById("transition-canvas");
+    tcanvas.getContext('2d').clearRect(0, 0, window.innerWidth, window.innerHeight);
     for (let i=0; i<6; ++i){
       this.icons.push(document.getElementById(`img${i}`));
     }
@@ -201,21 +203,85 @@ export default class Home extends React.Component{
     }, true)
   }
 
+  paintScreen(ctx, delay = 0, increment, start, x, y, w, h){
+    setTimeout( () => {
+      let frame2 = 1;
+      let segment2 = start;
+      const animate2 = setInterval(() => {
+      if (frame2 > 200) {
+        clearInterval(animate2);
+        console.log("cleared");
+      }
+      ctx.beginPath();
+      ctx.rect(segment2, y, w, h);
+      ctx.fillStyle = "#38f75e";
+      ctx.fill();
+      ++frame2;
+      segment2 += increment;
+    }, 10)}, delay)
+  }
+
+  toAbout(){
+    let canvas = document.getElementById('transition-canvas');
+    let ctx = canvas.getContext('2d');
+    let W = window.innerWidth;
+  	let H = window.innerHeight;
+  	canvas.width = W;
+  	canvas.height = H;
+    let w = window.innerWidth/150;
+    let h = window.innerHeight/6;
+    this.paintScreen(ctx, 0, window.innerWidth/200, 0, 0, 0, w, h);
+    this.paintScreen(ctx, 300, window.innerWidth/200, 0, 0, window.innerHeight/6, w, h);
+    this.paintScreen(ctx, 100, window.innerWidth/200, 0, 0, window.innerHeight/6 * 2, w, h);
+    this.paintScreen(ctx, 250, window.innerWidth/200, 0, 0, window.innerHeight/6 * 3, w, h);
+    this.paintScreen(ctx, 0, window.innerWidth/200, 0, 0, window.innerHeight/6 * 4, w, h);
+    this.paintScreen(ctx, 100, window.innerWidth/200, 0, 0, window.innerHeight/6 * 5, w, h);
+
+  }
+
+  toProjects(){
+    let canvas = document.getElementById('transition-canvas');
+    let ctx = canvas.getContext('2d');
+    let W = window.innerWidth;
+  	let H = window.innerHeight;
+  	canvas.width = W;
+  	canvas.height = H;
+    let frame = 1;
+    let segment = window.innerHeight;
+    const animate = setInterval(() => {
+      if (frame > 200) {
+        clearInterval(animate);
+        console.log("cleared");
+      }
+      ctx.beginPath();
+      ctx.rect(0, segment, window.innerWidth/6, window.innerHeight/100);
+      ctx.fillStyle = "#38f75e";
+      ctx.fill();
+      ++frame;
+      segment -= window.innerHeight/200;
+    }, 5)
+    // this.props.history.push('/projects');
+  }
+
+  toContact(){
+    this.props.history.push('/contact');
+  }
+
   render(){
     return(
       <div className="home">
+        <canvas className="transition-canvas"  id="transition-canvas"></canvas>
+        <a onClick={this.toAbout.bind(this)} className="navItem navItemAbout" id="about" rel="About"><div className="charAbout">A</div><div className="charAbout">B</div><div className="charAbout">O</div><div className="charAbout">U</div><div className="charAbout">T</div></a>
+        <a onClick={this.toProjects.bind(this)} className="navItem navItemProjects" id="projects" rel="Projects"><div className="charProj">P</div><div className="charProj">R</div><div className="charProj">O</div><div className="charProj">J</div><div className="charProj">E</div><div className="charProj">C</div><div className="charProj">T</div><div className="charProj">S</div></a>
+        <a onClick={this.toContact.bind(this)} className="navItem navItemContact" id="contact" rel="Contact"><div className="charContact">C</div><div className="charContact">O</div><div className="charContact">N</div><div className="charContact">T</div><div className="charContact">A</div><div className="charContact">C</div><div className="charContact">T</div></a>
         <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494618930/developer_vtcqee.png" className="icon" id="img5" alt="developer icon"></img>
         <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/designer_pbghny.png" className="icon" id="img0" alt="designer icon"></img>
         <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/connoisseur_v9jssn.png" className="icon" id="img1" alt="connoisseur icon"></img>
         <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/aficionado_vw5z8a.png" className="icon" id="img2" alt="aficionado icon"></img>
         <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/intellect_acj5se.png" className="icon" id="img3" alt="intellect icon"></img>
         <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494619266/researcher_mukgit.png" className="icon" id="img4" alt="researcher icon"></img>
-        <img src="http://res.cloudinary.com/dzjhhor8g/image/upload/v1494707456/yh_logo_sz546i.png" className="logo" id="yh" alt="Y.H logo"></img>
         <div className="name" data-text="Yasin Hosseinpur"><div className="first-name">Yasin</div><div className="last-name">&nbsp;Hosseinpur</div></div>
         <div className="slot-machine" id="slot"><span className="word spinword1" id="word1">Software</span><span className="word spinword2" id="word2">&nbsp;Developer</span></div>
-        <a className="navItem navItemAbout" rel="About"><div className="charAbout">A</div><div className="charAbout">B</div><div className="charAbout">O</div><div className="charAbout">U</div><div className="charAbout">T</div></a>
-        <a className="navItem navItemProjects" rel="Projects"><div className="charProj">P</div><div className="charProj">R</div><div className="charProj">O</div><div className="charProj">J</div><div className="charProj">E</div><div className="charProj">C</div><div className="charProj">T</div><div className="charProj">S</div></a>
-        <a className="navItem navItemContact" rel="Contact"><div className="charContact">C</div><div className="charContact">O</div><div className="charContact">N</div><div className="charContact">T</div><div className="charContact">A</div><div className="charContact">C</div><div className="charContact">T</div></a>
         <canvas className="canvas"  id="canvas"></canvas>
       </div>
     )
