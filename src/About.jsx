@@ -5,6 +5,8 @@ export default class About extends React.Component {
   componentDidMount(){
     let canvas = document.getElementById('transition-canvas');
     let ctx = canvas.getContext('2d');
+    let homeLink = document.getElementById('home');
+    homeLink.style.zIndex = -1;
     let W = window.innerWidth;
     let H = window.innerHeight;
     canvas.width = W;
@@ -24,6 +26,7 @@ export default class About extends React.Component {
     window.clear_paint = setInterval(() =>{
       if (frame > 151){
         clearInterval(window.clear_paint);
+        homeLink.style.zIndex = 100;
       }
       ctx.clearRect(segment, 0, W/150, H);
       segment += W/150;
@@ -53,11 +56,18 @@ export default class About extends React.Component {
     }
   }
 
+  toHome(){
+
+  }
+
   render(){
     return(
       <div className="about-container">
         <canvas className="transition-canvas"  id="transition-canvas"></canvas>
+        <div className="portrait"></div>
+        <div className="about-header">Hi, my name is Yasin</div>
         <a className="navItem navItemAbout" id="about" rel="About"><div className="charAbout">A</div><div className="charAbout">B</div><div className="charAbout">O</div><div className="charAbout">U</div><div className="charAbout">T</div></a>
+        <a onClick={this.toHome.bind(this)} className="navItem navItemContact" id="home" rel="Contact"><div className="charContact">H</div><div className="charContact">O</div><div className="charContact">M</div><div className="charContact">E</div></a>
       </div>
     )
   }

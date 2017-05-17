@@ -16,7 +16,9 @@ export default class Home extends React.Component{
     let W = window.innerWidth;
     let H = window.innerHeight
     ctx.clearRect(0, 0, W, H);
-    clearInterval(window.drawSlow);
+    if(window.drawSlow){
+      clearInterval(window.drawSlow);
+    }
     window.particles = [];
   }
 

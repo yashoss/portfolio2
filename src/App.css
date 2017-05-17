@@ -379,6 +379,33 @@ body {
   100% { transform: rotate(0deg); }
 }
 
+.portrait {
+  background-image: url("http://res.cloudinary.com/dzjhhor8g/image/upload/v1482718716/user8_pqmrk3.webp");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  border-radius: 50%;
+  width:200px;
+  height: 200px;
+  margin-left: 100px;
+  margin-top: 100px;
+  float: left;
+}
+
+.about-header {
+  font-size: 55px;
+  letter-spacing: 1px;
+  float: left;
+  margin-top: 150px;
+  margin-left: 100px;
+  width: calc(100% - 3.2vw - 400px);
+  text-align: left;
+  padding: 0;
+  color: #38f75e;
+  border-bottom: 5px solid #3c3c3e;
+  font-weight: 700;
+}
+
 @media(max-width:726px){
   .name {
     flex-direction: column;
@@ -408,5 +435,15 @@ body {
   }
   .word {
     font-size: 3vw;
+  }
+  .portrait {
+      height: 150px;
+      width: 150px;
+      margin-left: 50px;
+  }
+  .about-header {
+    margin-top: 100px;
+    margin-left: 50px;
+    width: 212px;
   }
 }
